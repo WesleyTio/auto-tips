@@ -16,19 +16,19 @@ class VehicleSeeder extends Seeder
     {
         //
         $dados =[
-            'Type' =>"Moto",
+            'type' =>"Moto",
         ];
         $dados2 =[
-            'Type' =>"Carro",
+            'type' =>"Carro",
         ];
         $dados3 =[
-            'Type' =>"Caminhão",
+            'type' =>"Caminhão",
         ];
-        Vehicle::created($dados);
+        Vehicle::create($dados);
         echo "veículo 1 criado \n";
-        Vehicle::created($dados2);
+        Vehicle::create($dados2);
         echo "veículo 2 criado \n";
-        Vehicle::created($dados3);
+        Vehicle::create($dados3);
         echo "veículo 3 criado \n";
     }
 }

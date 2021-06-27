@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call(UserSeeder::class);
-        $this->call(TipSeeder::class);
         $this->call(VehicleSeeder::class);
+        $this->call(TipSeeder::class);
     }
 }

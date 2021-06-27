@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicle extends Model
 {
     use HasFactory;
+    public function tips(){
+
+        return $this->hasmany(Tip::class, 'fk_vehicle');
+    }
 }
