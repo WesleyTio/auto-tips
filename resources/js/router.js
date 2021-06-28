@@ -3,6 +3,7 @@ import {createWebHistory, createRouter} from 'vue-router';
 import Login from './Vue/pages/Login.vue'
 import Register from './Vue/pages/Register.vue'
 import Home from './Vue/pages/Home.vue'
+import EditUser from './Vue/pages/EditUser.vue'
 /*import Books from './Vue/pages/books.vue'
 import Reservations from './Vue/pages/Reservations.vue'
 import UserBooks from './Vue/components/UserBooks.vue'
@@ -26,6 +27,10 @@ export const routes = [
             name: 'register',
             path: '/register',
             component: Register
+        },{
+            name: 'edituser',
+            path: '/edituser',
+            component: EditUser
         }/*,{
             name: 'mybooks',
             path: '/mybooks',

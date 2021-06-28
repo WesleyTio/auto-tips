@@ -81,6 +81,37 @@ class UserController extends Controller
         return response()->json($response);
 
     }
+    public function edit(){
+        $users = User::all()->toArray();
+        $usersEmail = array();
+
+        foreach($users as $user){
+            array_push($usersEmail, $user['email']);
+        }
+
+        $response = [
+            'name'   => Auth::user()->name,
+            'email'  => Auth::user()->email,
+            'emails' => $usersEmail
+        ];
+        return response()->json($response);
+
+    }
+    public function update(Request $request){
+
+
+        $user = User::find(Auth::user()->id);
+        $user->update($request->all());
+
+        $response = [
+            'success' => true,
+            'message' => "Usuario atualizado com sucesso",
+        ];
+
+        return response()->json($response);
+
+
+    }
     public function userTips(){
 
         $user = Auth::user();

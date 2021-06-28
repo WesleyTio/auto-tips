@@ -4,6 +4,10 @@
         <div class="alert alert-danger" role="alert" v-if="errors != null" style="align-self: center;">
                 {{ errors }}
         </div>
+        <div class="alert alert-success" role="alert" v-if="success != null" style="align-self: center;">
+                {{ success }}
+        </div>
+        <p>{{validateEmail}}</p>
         <form  method="POST" autocomplete="on" >
             <div class="form-group">
                 <label for="exampleInputEmail1">Email:</label>
@@ -25,7 +29,7 @@
                 v-model="user.password"
                 placeholder="password">
             </div>
-            <button type="submit" class="btn btn-info " style="width: 100%;" @click="register"> Registar </button>
+            <button type="submit" class="btn btn-info " style="width: 100%;" @click="save"> Salvar </button>
         </form>
     </div>
   </div>
@@ -40,14 +44,30 @@ export default {
                 email: '',
                 password: '',
             },
-            errors: null
+            emails:[],
+            errors: null,
+            success: null
         }
     },
+    created(){
+        axios.get('/sanctum/csrf-cookie').then(response =>{
+                axios.get('api/edit')
+                .then(response => {
+                    console.log(response.data);
+                    this.user.name = response.data.name
+                    //this.user.email = response.data.email
+                    this.emails = response.data.emails
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+            })
+    },
     methods: {
-        register(e){
+        save(e){
             e.preventDefault()
             axios.get('/sanctum/csrf-cookie').then(response =>{
-                axios.post('api/register', {
+                axios.post('api/update', {
                     name: this.user.name,
                     email: this.user.email,
                     password: this.user.password
@@ -55,7 +75,11 @@ export default {
                 .then(response => {
                     console.log(response.data);
                     if (response.data.success) {
-                        this.$router.push('/login')
+                        this.success = response.data.message
+                        this.user.name = ''
+                        this.user.email = ''
+                        this.user.password = ''
+                        //this.$router.push('/login')
                     }else{
                         this.errors = response.data.message
                     }
@@ -64,6 +88,20 @@ export default {
                     console.error(error);
                 });
             })
+        }
+    },
+    computed:{
+        validateEmail(){
+            this.errors = null
+            let validate = true
+            this.emails.forEach(email => {
+                if(this.user.email === email){
+                    validate = false
+                }
+            });
+            if(!validate){
+                this.errors = 'email invalido use outro!!'
+            }
         }
     }
 }
