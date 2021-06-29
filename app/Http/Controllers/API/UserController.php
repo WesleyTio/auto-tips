@@ -116,10 +116,11 @@ class UserController extends Controller
 
         $user = Auth::user();
         $list_tips = array();
-
+        //var_dump($user->tips);
         foreach($user->tips as $tip){
-            $item = array('id' => $tip->id, 'tip' => $tip->tip, 'brand' => $tip->brand, 'model' => $tip->model,
-            'version' => $tip->version);
+            //var_dump($tip->id);
+            $item = ['id' => $tip->id, 'vehicle' => $tip->vehicle->type, 'brand' => $tip->brand, 'model' => $tip->model];
+            //var_dump($item);
             array_push($list_tips, $item);
 
         }

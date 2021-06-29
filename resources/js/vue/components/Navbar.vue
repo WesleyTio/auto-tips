@@ -9,7 +9,7 @@
             <div class="collapse navbar-collapse" id="collapsibleNavId">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0" v-if="isLoggedIn">
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/">Minha dicas</router-link>
+                        <router-link class="nav-link" to="/mytips">Minha dicas</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link class="nav-link" to="/">Reservar livro</router-link>

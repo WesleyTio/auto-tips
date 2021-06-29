@@ -25,15 +25,16 @@ Route::post('register', [UserController::class, 'register']);
 Route::post('logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function(){
-    Route::get('edit', [UserController::class, 'edit'])->name('api.resgister.edit');
-    Route::post('update', [UserController::class, 'update'])->name('api.resgister.update');
+    Route::get('usertips', [UserController::class, 'userTips'])->name('api.user.tips');
+    Route::get('edit', [UserController::class, 'edit'])->name('api.user.edit');
+    Route::post('update', [UserController::class, 'update'])->name('api.user.update');
 });
 
 Route::get('lasttips', [TipController::class, 'lastTips'])->name('api.tip.lasttips');
 
 Route::middleware('auth:sanctum')->group(function(){
-    Route::get('edit', [TipController::class, 'edit'])->name('api.tip.edit');
-    Route::post('update', [TipController::class, 'update'])->name('api.tip.update');
-    Route::get('edit', [TipController::class, 'edit'])->name('api.tip.edit');
-    Route::post('update', [TipController::class, 'update'])->name('api.tip.update');
-});
+    Route::post('add', [TipController::class, 'store'])->name('api.tip.add');
+    Route::get('edit/{id}', [TipController::class, 'show'])->name('api.tip.edit');
+    Route::post('update/{id}', [TipController::class, 'update'])->name('api.tip.update');
+    Route::delete('delete/{id}', [TipController::class, 'destroy'])->name('api.tip.destroy');
+  });

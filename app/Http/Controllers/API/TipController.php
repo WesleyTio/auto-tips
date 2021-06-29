@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Tip;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TipController extends Controller
 {
@@ -38,6 +39,18 @@ class TipController extends Controller
     public function store(Request $request)
     {
         //
+        $tip = new Tip([
+            'fk_user' =>Auth::user()->id,
+            'fk_vehicle' => $request->vehicle,
+            'tip' => $request->tip,
+            'brand' => $request->brand,
+            'model' => $request->model,
+            'version' => $request->version,
+        ]);
+        $tip->save();
+
+        return response()->json("Dica adcionada com sucesso");
+
     }
 
     /**
@@ -49,6 +62,16 @@ class TipController extends Controller
     public function show($id)
     {
         //
+        $tip = Tip::find($id);
+        $response =[
+            'selectevehicle'   => $tip->vehicle->id,
+            'brand'     => $tip->brand,
+            'model'     => $tip->model,
+            'version'   => $tip->version,
+            'tipText'   => $tip->tip,
+        ];
+        return response()->json($response);
+
     }
 
     /**
@@ -61,6 +84,27 @@ class TipController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $tip = Tip::find($id);
+        /*$tip->vehicle = $request->vehicle;
+        $tip->brand = $request->brand;
+        $tip->model = $request->model;
+        $tip->version = $request->version;
+        $tip->tip = $request->tip;*/
+        if($tip->update($request->all())){
+            $response =[
+                'success'   => true,
+                'message'   => 'Dica alterada com sucesso'
+            ];
+        }else{
+            $response =[
+                'success'   => true,
+                'message'   => 'Erro ao salvar alteração'
+            ];
+
+        }
+
+        return response()->json($response);
+
     }
 
     /**
@@ -72,5 +116,22 @@ class TipController extends Controller
     public function destroy($id)
     {
         //
+        $tip = Tip::find($id);
+       
+        if($tip->delete()){
+            $response =[
+                'success'   => true,
+                'message'   => 'Dica removida com sucesso'
+            ];
+
+        }else{
+            $response =[
+                'success'   => false,
+                'message'   => 'Ops!! Falha na remoção da dica!'
+            ];
+
+        }
+        return response()->json($response);
+
     }
 }

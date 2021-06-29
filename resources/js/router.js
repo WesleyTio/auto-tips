@@ -4,12 +4,12 @@ import Login from './Vue/pages/Login.vue'
 import Register from './Vue/pages/Register.vue'
 import Home from './Vue/pages/Home.vue'
 import EditUser from './Vue/pages/EditUser.vue'
-/*import Books from './Vue/pages/books.vue'
-import Reservations from './Vue/pages/Reservations.vue'
-import UserBooks from './Vue/components/UserBooks.vue'
-import EditBook from './Vue/components/EditBook.vue'
-import AddBook from './Vue/components/AddBook.vue'
-import UserReservations from './Vue/components/UserReservations.vue'*/
+import Tips from './Vue/pages/Tips.vue'
+
+import UserTips from './Vue/components/UserTips.vue'
+import EditTip from './Vue/components/EditTip.vue'
+import AddTip from './Vue/components/AddTip.vue'
+
 
 
 export const routes = [
@@ -31,18 +31,18 @@ export const routes = [
             name: 'edituser',
             path: '/edituser',
             component: EditUser
-        }/*,{
-            name: 'mybooks',
-            path: '/mybooks',
-            component: Books,
+        },{
+            name: 'mytip',
+            path: '/mytips',
+            component: Tips,
             props: true,
             children: [
-                { path: '', component: UserBooks, props: true},
-                { path: 'add', component: AddBook, props: true},
-                { path: ':id', component: EditBook, props: true},
-                { path: ':id/editar/:edit', component: EditBook, props: true}
+                { path: '', component: UserTips, props: true},
+                { path: 'add', component: AddTip, props: true},
+                { path: ':id', component: EditTip, props: true},
+                { path: ':id/editar/:edit', component: EditTip, props: true}
             ]
-        }*/
+        }
 
 ];
 
