@@ -5,7 +5,7 @@ import Register from './Vue/pages/Register.vue'
 import Home from './Vue/pages/Home.vue'
 import EditUser from './Vue/pages/EditUser.vue'
 import Tips from './Vue/pages/Tips.vue'
-
+import ShowTip from './Vue/components/ShowTip.vue'
 import UserTips from './Vue/components/UserTips.vue'
 import EditTip from './Vue/components/EditTip.vue'
 import AddTip from './Vue/components/AddTip.vue'
@@ -16,7 +16,8 @@ export const routes = [
         {
             name: 'home',
             path: '/',
-            component: Home
+            component: Home,
+            props: true
 
         },{
             name: 'login',
@@ -31,6 +32,12 @@ export const routes = [
             name: 'edituser',
             path: '/edituser',
             component: EditUser
+        },{
+            name: 'tip',
+            path: '/tip/:id',
+            component: ShowTip,
+            props: true,
+
         },{
             name: 'mytip',
             path: '/mytips',

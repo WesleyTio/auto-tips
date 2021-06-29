@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="row">
-            <div id="formulario" class="col-8">
+        <div class="row m-2">
+            <div id="formulario" class="col-8" v-if="editing">
                 <form method="POST" autocomplete="on">
                     <div class="form-group">
                         <label>Tipo de veículo:</label>
@@ -58,6 +58,36 @@
                     </button>
                 </form>
             </div>
+            <div id="formulario" class="col-8" v-else>
+                <form method="POST" autocomplete="on">
+                    <div class="form-group">
+                        <label>Tipo de veículo:</label>
+                        <select class="form-control" v-model="tip.selectevehicle">
+                            <option v-bind:value="1">Moto</option>
+                            <option v-bind:value="2">Carro</option>
+                            <option v-bind:value="3">Caminhão</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Marca</label>
+                        <label type="text" class="form-control" >{{tip.brand}}</label>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Modelo</label>
+                        <label type="text" class="form-control" >{{tip.model}}</label>
+                    </div>
+                    <div class="form-group">
+                        <label>Versão:</label>
+                          <label type="text" class="form-control" >{{tip.version}}</label>
+                    </div>
+                    <div class="form-group">
+                        <label>Dica:</label>
+                        <label type="text" class="form-control" row >{{tip.tipText}}</label>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </template>
@@ -67,13 +97,16 @@ export default {
    props: ["id", "edit"],
     data() {
         return {
+            editing:false,
             tip: [],
-
         };
     },
     created(){
+        if(this.edit === "true"){
+            this.editing = true
+        }
          axios
-                .get("/sanctum/csrf-cookie")
+            .get("/sanctum/csrf-cookie")
                 .then((response) => {
                     axios
                         .get(`api/edit/${this.id}`)

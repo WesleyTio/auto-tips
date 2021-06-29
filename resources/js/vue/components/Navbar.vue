@@ -100,6 +100,7 @@ export default {
                         localStorage.removeItem('userId')
                         this.isLoggedIn = false
                         this.name = null
+                        this.emitter.emit('isLoggedOff', true)
                         this.$router.replace('/')
                     } else {
                         console.log(response)

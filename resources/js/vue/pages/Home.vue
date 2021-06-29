@@ -1,7 +1,8 @@
 <template>
     <div>
         <div class="justify-content-center container-fluid my-4 ">
-        <ListLastTips></ListLastTips>
+        <ListLastTips v-if="!userIsLoggedIn"></ListLastTips>
+        <ListTips v-else></ListTips>
         </div>
     </div>
 </template>
@@ -9,24 +10,31 @@
 <script>
 
 import ListLastTips from '../components/ListLastTips.vue'
+import ListTips from '../components/ListTips.vue'
 export default {
-    components: { ListLastTips },
+    components: { ListLastTips, ListTips },
     data(){
         return{
-
+            userIsLoggedIn: false
         }
     },
     mounted(){
-        const logado = localStorage.getItem('isLoggedIn')
-        if( logado === 'true'){
+        this.emitter.on('isLoggedOff', isLoggedIn => {
+            if(isLoggedIn){
+                this.userIsLoggedIn = false
+            }
+        });
+        if(localStorage.getItem('isLoggedIn')){
+            this.userIsLoggedIn = true
             axios.get('api/user').then((response) => {
-                this.corruentUser = response.data
             }).catch((error) => {
-                this.emitter.emit('isLoggedOff', false)
+                this.emitter.emit('isLoggedIn', false)
                 this.$router.push('/login')
                 console.error(error);
             })
         }
+
+
 
     }
 }

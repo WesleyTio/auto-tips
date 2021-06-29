@@ -16,7 +16,14 @@ class TipController extends Controller
      */
     public function index()
     {
-        //
+        $tips = Tip::all();
+
+        $listTips = array();
+        foreach($tips as $tip){
+            $item = ['id' => $tip->id, 'vehicle' => $tip->vehicle->type, 'brand' => $tip->brand, 'model' =>$tip->model];
+            array_push($listTips, $item);
+        }
+        return response()->json($listTips);
     }
 
 
@@ -117,7 +124,7 @@ class TipController extends Controller
     {
         //
         $tip = Tip::find($id);
-       
+
         if($tip->delete()){
             $response =[
                 'success'   => true,

@@ -29,7 +29,7 @@
                     <tr>
                         <th scope="col" >Veículo</th>
                         <th scope="col" >Marca</th>
-                        <th scope="col" >Modelo</th>
+                        <th scope="col" >ModeloLO</th>
                         <th scope="col" >Ação</th>
 
                 </tr>
@@ -39,6 +39,14 @@
                             <td>{{tip.vehicle}}</td>
                             <td>{{tip.brand}}</td>
                             <td>{{tip.model}}</td>
+                            <td>
+                                <div>
+                                    <router-link :to="`/tip/${tip.id}`">
+                                        <a class="btn btn-outline-success mr-1" tabindex="-1" role="button" aria-disabled="true">Ver dica</a>
+                                    </router-link>
+
+                                </div>
+                            </td>
                         </tr>
 
                 </tbody>
@@ -53,12 +61,13 @@ export default {
     data(){
         return{
             tips:[],
-            tipsFilter: [],
-            search:''
+            tipsFilter:[],
+            search: ''
         }
     },
     created(){
-            axios.get('/api/lasttips')
+        axios.get("/sanctum/csrf-cookie").then((response) => {
+            axios.get('/api/tips')
                 .then(response =>{
                     console.log(response.data);
                     this.tips = response.data
@@ -66,6 +75,9 @@ export default {
                 }).catch(function (error) {
                 //console.error(error);
             });
+        }).catch(function (error) {
+                //console.error(error);
+        });
     },
     methods: {
         isCaterogory(tip){

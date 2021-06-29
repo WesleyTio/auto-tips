@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function(){
 Route::get('lasttips', [TipController::class, 'lastTips'])->name('api.tip.lasttips');
 
 Route::middleware('auth:sanctum')->group(function(){
+    Route::get('tips', [TipController::class, 'index'])->name('api.tip.tips');
     Route::post('add', [TipController::class, 'store'])->name('api.tip.add');
     Route::get('edit/{id}', [TipController::class, 'show'])->name('api.tip.edit');
     Route::post('update/{id}', [TipController::class, 'update'])->name('api.tip.update');
